@@ -7,7 +7,7 @@ rm(args)
 
 
 # Read data from .dat
-samples_data <- read.table("/Users/Capa/College/LAStability/LAStability/LAStability/results.dat", header=T, sep="\t")
+samples_data <- read.table("/Users/Capa/College/ECO/ECO/results.dat", header=T, sep="\t")
 # Compute the largest y value used in the data (or we could
 # just use range again)
 max_y <- max(samples_data)
@@ -16,7 +16,7 @@ max_y <- max(samples_data)
 plot_colors <- c("blue","red","forestgreen","black","purple")
 
 # Start PNG device driver to save output to figure.png
-png(filename="/Users/Capa/College/LAStability/LAStability/graph.png", height=500, width=800,
+png(filename="/Users/Capa/College/ECO/graph.png", height=500, width=800,
  bg="white")
 
 # Graph autos using y axis that ranges from 0 to max_y.
