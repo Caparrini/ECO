@@ -36,7 +36,7 @@ string LA(){
 
 void plotGraph(double s,double l,int divs){
     //Execute command r for script dragraph.r
-    std::string command = "r -f /Users/Capa/College/LAStability/LAStability/LAStability/drawGraph.r --args " +to_string(s)+ " " +to_string(l)+ " " + to_string(divs);
+    std::string command = "r -f /Users/Capa/College/ECO/ECO/drawGraph.r --args " +to_string(s)+ " " +to_string(l)+ " " + to_string(divs);
     std::system(command.c_str());
 }
 
@@ -50,7 +50,7 @@ double averageVector(std::vector<loadAverageTriplet> v){
 }
 
 bool writeResultFile(vector<loadAverageTriplet> myLATs){
-    string ruta = "/Users/Capa/College/LAStability/LAStability/LAStability/";
+    string ruta = "/Users/Capa/College/ECO/ECO/";
     string tab = "\t";
     ofstream outfile;
 
