@@ -7,7 +7,7 @@ rm(args)
 
 
 # Read data from .dat
-samples_data <- read.table("/Users/Capa/College/ECO/ECO/results.dat", header=T, sep="\t")
+samples_data <- read.table("results.dat", header=T, sep="\t")
 # Compute the largest y value used in the data (or we could
 # just use range again)
 max_y <- max(samples_data)
@@ -15,10 +15,8 @@ max_y <- max(samples_data)
 # Define colors to be used for V(x-), V(x+), D
 plot_colors <- c("blue","red","forestgreen","black","purple")
 
-# Start PNG device driver to save output to figure.png
-png(filename="/Users/Capa/College/ECO/graph.png", height=500, width=800,
- bg="white")
-
+# Start PDF device driver to save output to graph.pdf
+pdf("graph.pdf")
 # Graph autos using y axis that ranges from 0 to max_y.
 # Turn off axes and annotations (axis labels) so we can
 # specify them ourself

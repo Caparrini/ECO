@@ -21,7 +21,10 @@ using namespace std;
 
 
 
-//Executes the command uptime and returns and string with the result
+/** 
+ *  Executes the command uptime
+ *  return: string with the output of the uptime command
+ */
 string LA(){
     //Execute command uptime and send the exit text to stdin
     redi::ipstream uptime("uptime", redi::opstream::pstdin);
@@ -34,12 +37,18 @@ string LA(){
     return result;
 }
 
-void plotGraph(double s,double l,int divs){
+/**
+ *  Plots the graph using the script in R
+ */
+void plotGraph(double s,double l,int divs,std::string drawr){
     //Execute command r for script dragraph.r
-    std::string command = "r -f /Users/Capa/College/ECO/ECO/drawGraph.r --args " +to_string(s)+ " " +to_string(l)+ " " + to_string(divs);
+    std::string command = "r -f "+drawr+"drawGraph.r --args " +to_string(s)+ " " +to_string(l)+ " " + to_string(divs);
     std::system(command.c_str());
 }
 
+/**
+ *  return: the average of the samples of distances of all the LAs in the vector v
+ */
 double averageVector(std::vector<loadAverageTriplet> v){
     double sum =0;
     int i;
@@ -49,8 +58,12 @@ double averageVector(std::vector<loadAverageTriplet> v){
     return sum/i;
 }
 
+/**
+ *  Writes a .dat file with data for draw the graph
+ *  return: true if success
+ */
 bool writeResultFile(vector<loadAverageTriplet> myLATs){
-    string ruta = "/Users/Capa/College/ECO/ECO/";
+    string ruta = "";
     string tab = "\t";
     ofstream outfile;
 
@@ -83,6 +96,7 @@ int main(int argc, const char * argv[]) {
     int timeDelay;
     double landa;
     std::string uptime;
+    std::string drawr;
     vector<loadAverageTriplet> myLATs;
 
 
@@ -92,22 +106,24 @@ int main(int argc, const char * argv[]) {
     cin >> timeDelay; //Comprobar entrada TODO
     cout << "What is your threshold level of stability?" << endl;
     cin >> landa; //Comprobar entrada TODO
+    cout << "What is the localization of the drawGraph.r?" << endl;
+    cin >> drawr;
 
     for(int i=0; i<samples; i++){
         uptime = LA();
         loadAverageTriplet LAT = *new loadAverageTriplet(uptime);
-        cout << i << "    " << uptime <<" media = " << LAT.getSampleOfDistances() << endl;
+        cout << i << "    " << uptime <<" diferencia de las var = " << LAT.getSampleOfDistances() << endl;
 
         myLATs.push_back(LAT);
         this_thread::sleep_until(chrono::system_clock::now() + chrono::seconds(timeDelay));
 
     }
 
-    cout << "La media es : ";
+    cout << "La media de las diferencias de las var es : ";
     cout << averageVector(myLATs);
     cout << endl;
 
-    cout << "Comparativa con landa : ";
+    cout << "Comparativa de la media con landa : ";
     cout << landa-averageVector(myLATs);
     cout << endl;
 
@@ -115,7 +131,7 @@ int main(int argc, const char * argv[]) {
         cout << "Error al escribir archivo results.dat.\n";
     }
 
-    plotGraph(averageVector(myLATs),landa,samples);
+    plotGraph(averageVector(myLATs),landa,samples,drawr);
 
     return 0;
 }

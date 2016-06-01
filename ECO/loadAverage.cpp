@@ -3,7 +3,6 @@
 //  ECO
 //
 //  Created by Antonio Caparrini on 15/3/16.
-//  Copyright (c) 2016 Antonio Caparrini. All rights reserved.
 //
 
 #include "loadAverage.h"
